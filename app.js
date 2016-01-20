@@ -1,13 +1,14 @@
 var express = require('express');
 var app = express(); //instance of express
+var swig = require('swig');
 
 app.listen(3000, function(){
 	console.log("server listening");
 });
 
-app.use("/", function (req, res, next) {
-  console.log('Time:' + Date());
-  next();
+app.get("/", function (req, res) {
+  var people = [{name: 'Grace Hopper'}, {name: 'Alyssa'}, {name: 'Mariya'}];
+  res.render('index', {title: 'Grasshoppers', people: people});
 
 });
 
@@ -29,6 +30,15 @@ app.get("/", function(req, res){
 app.get("/news", function(req, res){
 	res.send("This is news");
 })
+
+//req.params getting parameters after our slash, must pass as argument before
+//git clone GITHUB URL
+
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname+ "/views");
+
+swig.setDefaults({ cache: false});
 
 
 

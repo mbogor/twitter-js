@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express(); //instance of express
 var swig = require('swig');
-
+var bodyParser = require('body-parser')
 var routes = require('./routes/');
 
 app.use('/', routes);
